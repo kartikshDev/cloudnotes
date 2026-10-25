@@ -1,0 +1,5 @@
+#cloud-config
+packages:
+  - nginx
+runcmd:
+  - echo "CloudNotes Day 2 - served by nginx" > /var/www/html/index.html

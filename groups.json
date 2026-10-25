@@ -1,0 +1,35 @@
+[
+  {
+    "id": "/subscriptions/bc1b5b07-94e8-4708-8233-000646122974/resourceGroups/ResourceMoverRG-westus2-canadacentral-cnc",
+    "location": "canadacentral",
+    "managedBy": null,
+    "name": "ResourceMoverRG-westus2-canadacentral-cnc",
+    "properties": {
+      "provisioningState": "Succeeded"
+    },
+    "tags": null,
+    "type": "Microsoft.Resources/resourceGroups"
+  },
+  {
+    "id": "/subscriptions/bc1b5b07-94e8-4708-8233-000646122974/resourceGroups/satiticAppForPortfolio_group",
+    "location": "westus2",
+    "managedBy": null,
+    "name": "satiticAppForPortfolio_group",
+    "properties": {
+      "provisioningState": "Succeeded"
+    },
+    "tags": null,
+    "type": "Microsoft.Resources/resourceGroups"
+  },
+  {
+    "id": "/subscriptions/bc1b5b07-94e8-4708-8233-000646122974/resourceGroups/NetworkWatcherRG",
+    "location": "westus2",
+    "managedBy": null,
+    "name": "NetworkWatcherRG",
+    "properties": {
+      "provisioningState": "Succeeded"
+    },
+    "tags": null,
+    "type": "Microsoft.Resources/resourceGroups"
+  }
+]
