@@ -1,0 +1,6 @@
+#cloud-config
+package_update: true
+packages:
+- nginx
+runcmd:
+- echo "CloudNotes Day 4 - built with Terraform" > /var/www/html/index.html
