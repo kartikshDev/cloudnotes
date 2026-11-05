@@ -30,3 +30,14 @@ stages:
           - script: terraform validate
             workingDirectory: day5-terraform
             displayName: Validate
+  - stage: Deploy
+    dependsOn: Validate
+    jobs:
+    - deployment: DeployDev
+      environment: dev
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - script: echo "Deploying to dev"
+              displayName: Fake deploy
