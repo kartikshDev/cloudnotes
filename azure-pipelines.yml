@@ -49,3 +49,5 @@ stages:
                   displayName: Fake deploy
                 - script: echo "Location is $(location)"
                   displayName: Show location
+                - script: echo "Secret is $(mySecret)"
+                  displayName: Show secret
