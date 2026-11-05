@@ -6,7 +6,9 @@ pr:
       - main
 
 variables:
-  tfDir: day5-terraform
+  - group: cloudnotes-common
+  - name: tfDir
+    value: day5-terraform
 
 pool:
   vmImage: ubuntu-latest
@@ -45,3 +47,5 @@ stages:
               steps:
                 - script: echo "Deploying to dev"
                   displayName: Fake deploy
+                - script: echo "Location is $(location)"
+                  displayName: Show location
