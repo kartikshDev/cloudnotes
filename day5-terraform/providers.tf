@@ -3,14 +3,14 @@ terraform {
     azurerm = {
       source = "hashicorp/azurerm"
     version = "~> 4.0" }
-    
+
   }
   backend "azurerm" {
-  resource_group_name  = "tfstate-rg"
-  storage_account_name = "stkartikf2170"
-  container_name       = "tfstate"
-  key                  = "day5.tfstate"
-}
+    resource_group_name  = "tfstate-rg"
+    storage_account_name = "stkartikf2170"
+    container_name       = "tfstate"
+    key                  = "day5.tfstate"
+  }
 }
 provider "azurerm" {
   features {}
