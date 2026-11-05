@@ -1,0 +1,32 @@
+trigger: none
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: Validate
+    jobs:
+      - job: TerraformCheck
+        steps:
+          - checkout: self
+          - script: |
+              wget -q https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip
+              unzip -q terraform_1.9.8_linux_amd64.zip
+              sudo mv terraform /usr/local/bin/
+            displayName: Install Terraform
+          - script: terraform version
+            displayName: Show Terraform version
+          - script: terraform fmt -check
+            workingDirectory: day5-terraform
+            displayName: Format check
+          - script: terraform init -backend=false
+            workingDirectory: day5-terraform
+            displayName: Init
+          - script: terraform validate
+            workingDirectory: day5-terraform
+            displayName: Validate
