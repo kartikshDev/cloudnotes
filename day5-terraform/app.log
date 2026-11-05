@@ -1,0 +1,5 @@
+INFO app started
+ERROR disk full
+INFO user login
+WARN high cpu
+ERROR db timeout
