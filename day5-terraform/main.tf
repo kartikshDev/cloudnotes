@@ -1,4 +1,4 @@
-resource "azurerm_resource_group" "rg" {
+resource "azurerm_resource_group" "rgg" {
   name     = "day5-rg"
   location = var.location
   tags     = var.tags
