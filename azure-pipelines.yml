@@ -5,6 +5,9 @@ pr:
     include:
       - main
 
+variables:
+  tfDir: day5-terraform
+
 pool:
   vmImage: ubuntu-latest
 
@@ -22,22 +25,23 @@ stages:
           - script: terraform version
             displayName: Show Terraform version
           - script: terraform fmt -check
-            workingDirectory: day5-terraform
+            workingDirectory: $(tfDir)
             displayName: Format check
           - script: terraform init -backend=false
-            workingDirectory: day5-terraform
+            workingDirectory: $(tfDir)
             displayName: Init
           - script: terraform validate
-            workingDirectory: day5-terraform
+            workingDirectory: $(tfDir)
             displayName: Validate
+
   - stage: Deploy
     dependsOn: Validate
     jobs:
-    - deployment: DeployDev
-      environment: dev
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - script: echo "Deploying to dev"
-              displayName: Fake deploy
+      - deployment: DeployDev
+        environment: dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo "Deploying to dev"
+                  displayName: Fake deploy
