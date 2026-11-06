@@ -38,6 +38,7 @@ stages:
 
   - stage: Deploy
     dependsOn: Validate
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - deployment: DeployDev
         environment: dev
