@@ -24,8 +24,6 @@ stages:
               unzip -q terraform_1.9.8_linux_amd64.zip
               sudo mv terraform /usr/local/bin/
             displayName: Install Terraform
-          - script: terraform version
-            displayName: Show Terraform version
           - script: terraform fmt -check
             workingDirectory: $(tfDir)
             displayName: Format check
@@ -47,6 +45,8 @@ stages:
                 export ARM_CLIENT_ID=$servicePrincipalId
                 export ARM_TENANT_ID=$tenantId
                 export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+                export TF_VAR_subscription_id=$ARM_SUBSCRIPTION_ID
+                export TF_VAR_my_ip=$(curl -s https://ifconfig.me)
                 export ARM_OIDC_TOKEN=$idToken
                 export ARM_USE_OIDC=true
                 terraform init -input=false
@@ -62,9 +62,27 @@ stages:
           runOnce:
             deploy:
               steps:
-                - script: echo "Deploying to dev"
-                  displayName: Fake deploy
-                - script: echo "Location is $(location)"
-                  displayName: Show location
-                - script: echo "Secret is $(mySecret)"
-                  displayName: Show secret
+                - checkout: self
+                - script: |
+                    wget -q https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip
+                    unzip -q terraform_1.9.8_linux_amd64.zip
+                    sudo mv terraform /usr/local/bin/
+                  displayName: Install Terraform
+                - task: AzureCLI@2
+                  displayName: Terraform apply
+                  inputs:
+                    azureSubscription: CloudNotes
+                    scriptType: bash
+                    scriptLocation: inlineScript
+                    addSpnToEnvironment: true
+                    workingDirectory: $(tfDir)
+                    inlineScript: |
+                      export ARM_CLIENT_ID=$servicePrincipalId
+                      export ARM_TENANT_ID=$tenantId
+                      export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+                      export TF_VAR_subscription_id=$ARM_SUBSCRIPTION_ID
+                      export TF_VAR_my_ip=$(curl -s https://ifconfig.me)
+                      export ARM_OIDC_TOKEN=$idToken
+                      export ARM_USE_OIDC=true
+                      terraform init -input=false
+                      terraform apply -auto-approve -input=false
