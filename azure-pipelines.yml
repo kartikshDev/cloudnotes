@@ -53,6 +53,7 @@ stages:
                 export ARM_USE_OIDC=true
                 terraform init -input=false
                 terraform plan -input=false
+                terraform apply -auto-approve -input=false
 
   - stage: Deploy
     dependsOn: Validate
@@ -70,3 +71,4 @@ stages:
                   displayName: Show location
                 - script: echo "Secret is $(mySecret)"
                   displayName: Show secret
+                
