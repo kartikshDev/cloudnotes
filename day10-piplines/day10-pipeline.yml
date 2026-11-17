@@ -1,0 +1,23 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - day9-docker/*
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: Docker@2
+    displayName: Build and push to ACR
+    inputs:
+      command: buildAndPush
+      containerRegistry: connectiontoACR
+      repository: cloudnotes-web
+      Dockerfile: day9-docker/Dockerfile
+      buildContext: day9-docker
+      tags: |
+        $(Build.BuildId)
+        latest
